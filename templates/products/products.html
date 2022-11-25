@@ -17,9 +17,9 @@
                 <div class="card_body">
                     <h5>{{ product.title }}</h5>
 
-                        <div>{{ category.title }}</div>
+                    <div>Category: {{ product.category }}</div>
 
-                    <a href="#" class="btn btn-primary">Посмотреть</a>
+                    <a href="/products/{{ product.id }}" class="btn btn-primary">Посмотреть</a>
 
                 </div>
 

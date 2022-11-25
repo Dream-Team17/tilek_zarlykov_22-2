@@ -1,0 +1,45 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+    <style>
+        .product {
+            width: 70%;
+            margin-left: 15%;
+        }
+        .comments {
+            width: 70%;
+            margin-left: 15%;
+        }
+        .comment {
+            background: #242b2e;
+            color: #fff;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+    </style>
+    <div class="product">
+        <div class="img">
+            <img src="/media/{{ product.image }}/" alt="" width="340px">
+
+        </div>
+        <div class="info">
+            <div style="display: flex; justify-content: space-between">
+                <h1>{{ product.title }}</h1>
+                <h1>{{ product.author.username }}</h1>
+             </div>
+            <h5>{{ product.description }}</h5>
+            <div class="category">
+                <p>{{ category.title }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="comments">
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="author">{{ comment.author.username }}</p>
+                <p class="text">{{ comment.text }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
