@@ -1,9 +1,26 @@
 {% extends 'layouts/main.html' %}
 
 {% block content %}
+    <style type="text/css">
+        .category {
+            display: flex;
+            justify-content: space-between;
+            width: 20%;
+        }
+        .categories {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-left: 10%;
+        }
+        .category > img {
+            width: 80px;
+        }
+    </style>
     <div class="categories">
         {% for category in categories %}
             <div class="category">
+                <img src="/media/{{ category.icon }}" alt="">
                 <h3>
                     <a href="/products/?category_id={{ category.id }}">
                         {{ category.title }}
