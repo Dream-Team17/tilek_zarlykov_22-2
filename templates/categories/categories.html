@@ -1,0 +1,16 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+    <div class="categories">
+        {% for category in categories %}
+            <div class="category">
+                <h3>
+                    <a href="/products/?category_id={{ category.id }}">
+                        {{ category.title }}
+                    </a>
+                </h3>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
