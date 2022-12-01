@@ -6,17 +6,17 @@
             width: 70%;
             margin-left: 15%;
         }
-        .comments {
+        .reviews {
             width: 70%;
             margin-left: 15%;
         }
-        .comment {
+        .review {
             background: #242b2e;
             color: #fff;
             margin-bottom: 20px;
             padding: 10px;
         }
-        .create_comment {
+        .create_review{
             width: 70%;
             margin-left: 15%;
             margin-top: 20px;
@@ -40,18 +40,18 @@
             </div>
         </div>
     </div>
-    <div class="create_comment">
+    <div class="create_review">
         <form action="/products/{{ product.id }}/" method="post">
             {% csrf_token %}
             {{ form }}
             <input type="submit" class="btn btn-primary" value="Оставить комментарий">
         </form>
     </div>
-    <div class="comments">
-        {% for comment in comments %}
-            <div class="comment">
-                <p class="author">{{ comment.author.username }}</p>
-                <p class="text">{{ comment.text }}</p>
+    <div class="reviews">
+        {% for review in reviews %}
+            <div class="review">
+                <p class="author">{{ review.author.username }}</p>
+                <p class="text">{{ review.text }}</p>
             </div>
         {% endfor %}
     </div>

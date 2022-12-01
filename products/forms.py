@@ -6,7 +6,7 @@ class ProductCreateForm(forms.Form):
     price = forms.IntegerField(min_value=0)
 
 
-class CommentCreateForm(forms.Form):
+class ReviewCreateForm(forms.Form):
     text = forms.CharField(min_length=1, max_length=150)
 
 

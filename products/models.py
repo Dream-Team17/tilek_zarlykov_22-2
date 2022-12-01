@@ -22,7 +22,7 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.author.username}_{self.title}"
 
-class Comment(models.Model):
+class Review(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
