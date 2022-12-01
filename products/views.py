@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from products.models import Product, Category, Comment
+from products.forms import ProductCreateForm, CommentCreateForm
 
 # Create your views here.
 
@@ -36,10 +37,36 @@ def detail_product_view(request, id):
 
         data = {
             'product': product,
-            'comments': comments
+            'comments': comments,
+            'category': product.category,
+            'form': CommentCreateForm
         }
 
         return render(request, 'products/detail.html', context=data)
+
+    if request.method == 'POST':
+        form = CommentCreateForm(data=request.POST)
+
+        if form.is_valid():
+            Comment.objects.create(
+                author_id=2,
+                text=form.cleaned_data.get('text'),
+                product_id=id
+            )
+            return redirect(f'/products/{id}/')
+        else:
+            product = Product.objects.get(id=id)
+            comments = Comment.objects.filter(product_id=id)
+
+            data = {
+                'product': product,
+                'comments': comments,
+                'category': product.category,
+                'form': form
+            }
+
+            return render(request, 'products/detail.html', context=data)
+
 
 def categories_view(request, **kwargs):
     if request.method =='GET':
@@ -50,3 +77,29 @@ def categories_view(request, **kwargs):
 
         return render(request, 'categories/categories.html', context=data)
 
+def product_create_view(request):
+    if request.method == 'GET':
+        data = {
+            'form': ProductCreateForm
+        }
+        return render(request, 'products/create.html', context=data)
+
+    if request.method == 'POST':
+        form = ProductCreateForm(data=request.POST)
+
+        if form.is_valid():
+            Product.objects.create(
+                author_id=1,
+                title=form.cleaned_data.get('title'),
+                description=form.cleaned_data.get('description'),
+                price=form.cleaned_data.get('price'),
+
+            )
+
+
+            return redirect('/products')
+        else:
+            data = {
+                'form': form
+            }
+            return render(request, 'products/create.html', context=data)
