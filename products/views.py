@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from products.models import Product, Category, Review
 from products.forms import ProductCreateForm, ReviewCreateForm
+from users.utils import get_user_from_request
 
 # Create your views here.
 
@@ -25,7 +26,8 @@ def products_view(request):
 
 
         data = {
-            'products':products
+            'products':products,
+            'user': get_user_from_request(request)
         }
 
         return render(request, "products/products.html", context=data)
@@ -39,7 +41,8 @@ def detail_product_view(request, id):
             'product': product,
             'reviews': reviews,
             'category': product.category,
-            'form': ReviewCreateForm
+            'form': ReviewCreateForm,
+            'user': get_user_from_request(request)
         }
 
         return render(request, 'products/detail.html', context=data)
@@ -62,7 +65,8 @@ def detail_product_view(request, id):
                 'product': product,
                 'reviews': reviews,
                 'category': product.category,
-                'form': form
+                'form': form,
+                'user': get_user_from_request(request)
             }
 
             return render(request, 'products/detail.html', context=data)
@@ -72,7 +76,8 @@ def categories_view(request, **kwargs):
     if request.method =='GET':
         categories = Category.objects.all()
         data = {
-            'categories': categories
+            'categories': categories,
+            'user': get_user_from_request(request)
         }
 
         return render(request, 'categories/categories.html', context=data)
@@ -80,7 +85,8 @@ def categories_view(request, **kwargs):
 def product_create_html(request):
     if request.method == 'GET':
         data = {
-            'form': ProductCreateForm
+            'form': ProductCreateForm,
+            'user': get_user_from_request(request)
         }
         return render(request, 'products/create.html', context=data)
 
@@ -100,6 +106,7 @@ def product_create_html(request):
             return redirect('/products')
         else:
             data = {
-                'form': form
+                'form': form,
+                'user': get_user_from_request(request)
             }
             return render(request, 'products/create.html', context=data)
